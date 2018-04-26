@@ -11,11 +11,8 @@ const MOUNT = document.getElementById('root');
 
 let initialState = window.INITIAL_STATE,
     rehydrateState = window.ASYNC_COMPONENTS_STATE;
-bootstrap();
-function bootstrap(){
-    const store = configureStore(initialState);
-    renderApplication(store, rehydrateState);
-}
+const store = configureStore(initialState);
+renderApplication(store, rehydrateState);
 
 
 
@@ -30,6 +27,6 @@ function renderApplication(store, rehydrateState){
 
     return asyncBootstrapper(app)
         .then(() => {
-            ReactDOM.render(app, MOUNT)
+            ReactDOM.hydrate(app, MOUNT)
         });
 }

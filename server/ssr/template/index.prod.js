@@ -24,7 +24,7 @@ export default props => `
   <script type="text/javascript">
     window.INITIAL_STATE = ${serialize(props.initialState)};
     window.ASYNC_COMPONENTS_STATE = ${serialize(props.asyncState)}
-    window.SERVER = ${serialize(props.SERVER)}
+    window.isServer = ${serialize(props.isServer)}
   </script>
   <div id="root">${props.appString}</div>
   <script type="text/javascript" src="/${assetManifest['main.js']}"></script>
