@@ -9,39 +9,39 @@ import Helmet from 'react-helmet';
 import fetchDataForRender from './fetchDataForRender';
 
 async function reactSSRMiddleware(req, res){
-      const store = configureStore();
-      await fetchDataForRender(req, store);
-      const context = {};
-      const asyncContext = createAsyncContext();
+    const store = configureStore();
+    await fetchDataForRender(req, store);
+    const context = {};
+    const asyncContext = createAsyncContext();
 
-      const rootElement = (
-          <AsyncComponentProvider asyncContext={asyncContext}>
-              <Root
-                  store={store}
-                  type="server"
-                  url={req.url}
-                  context={context}
-              />
-          </AsyncComponentProvider>
-      );
+    const rootElement = (
+        <AsyncComponentProvider asyncContext={asyncContext}>
+            <Root
+                store={store}
+                type="server"
+                url={req.url}
+                context={context}
+            />
+        </AsyncComponentProvider>
+    );
 
-      asyncBootstrapper(rootElement).then(() => {
-              const appString = renderToString(rootElement);
-              const initialState = store.getState();
-              const asyncState = asyncContext.getState();
-              const helmet = Helmet.renderStatic();
-              res.end(renderHTMLTemplate({
-                  appString,
-                  initialState,
-                  asyncState,
-                  helmet,
-                  isServer: true
-              }));
-    if (context.location){
-      res.redirect(context.location.pathname)
-    }
+    asyncBootstrapper(rootElement).then(() => {
+            const appString = renderToString(rootElement);
+            const initialState = store.getState();
+            const asyncState = asyncContext.getState();
+            const helmet = Helmet.renderStatic();
+            res.end(renderHTMLTemplate({
+                appString,
+                initialState,
+                asyncState,
+                helmet,
+                isServer: true
+            }));
+if (context.location){
+    res.redirect(context.location.pathname)
+}
 
-      });
+    });
 }
 
 export default reactSSRMiddleware;
