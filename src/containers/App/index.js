@@ -6,25 +6,17 @@ import {
     Redirect
 } from 'react-router-dom'
 import Helmet from 'react-helmet';
-import {asyncComponent} from 'react-async-component';
 import logo from './logo.svg';
 import './index.css';
-
-
-const asyncHome = asyncComponent({
-    resolve: () => import('../../pages/Home'),
-    LoadingComponent: ({ match }) => <div>Resolving {match.url}</div>
-});
-
-const asyncAbout = asyncComponent({
-    resolve: () => import('../../pages/About'),
-    LoadingComponent: ({ match }) => <div>Resolving {match.url}</div>
-});
-
-
+import { routes } from './routes';
 class App extends Component {
     componentDidMount() {
         window.isServer = false
+    }
+    renderRoutes = () => {
+      return routes.map(route => (
+        <Route exact={route.exact} path={route.path} component={route.component} />
+      ))
     }
   render() {
     return (
@@ -59,8 +51,7 @@ class App extends Component {
           </nav>
         </div>
         <Switch>
-            <Route exact path="/" component={asyncHome} />
-            <Route exact path="/about" component={asyncAbout} />
+            {this.renderRoutes()}
             <Route exact path="/red" render={() => (<Redirect to="/" />)} />
             <Route path="*" component={() => <div>404</div>} />
         </Switch>

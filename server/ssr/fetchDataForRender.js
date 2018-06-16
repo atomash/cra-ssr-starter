@@ -1,29 +1,25 @@
 import url from 'url';
+import React from 'react';
 import { matchPath } from 'react-router-dom';
 
-import { Home } from '../../src/pages/Home';
+import { routes } from '../../src/containers/App/routes'
 
-const COMPONENTS_FETCH_DATA = [
-  {
-    path: '/',
-    component: Home,
-    exact: true
-  }
-];
-
-const fetchDataForRender = (req, store) => {
+const fetchDataForRender = async (req, store) => {
   const promises = [];
 
-    COMPONENTS_FETCH_DATA.some(route => {
+    await routes.some(async route => {
     const match = matchPath(url.parse(req.url).pathname, route);
     if (match) {
-      const promise =
-        route.component &&
-        route.component.fetchData &&
-        route.component.fetchData(store, match);
+      route.serverComponent.then((component) => {
+        const promise =
+        component &&
+        component.fetchData &&
+        component.fetchData(store, match);
       promises.push(promise);
+      return match;
+      })
     }
-    return match;
+
   });
   return Promise.all(promises);
 };
