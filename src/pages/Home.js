@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser } from "../actions/index";
 
+export const fetchData = (store) => store.dispatch(fetchUser());
 export class Home extends Component {
-  static fetchData(store) {
-    return store.dispatch(fetchUser());
-  }
-
   componentDidMount() {
+    console.log(window.isServer)
       if(!window.isServer){
           this.props.fetchUser()
       }

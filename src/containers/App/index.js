@@ -14,7 +14,7 @@ class App extends Component {
         window.isServer = false
     }
     renderRoutes = () => {
-      return routes.map(route => (
+      return routes(false).map(route => (
         <Route exact={route.exact} path={route.path} component={route.component} />
       ))
     }

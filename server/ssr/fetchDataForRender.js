@@ -7,14 +7,14 @@ import { routes } from '../../src/containers/App/routes'
 const fetchDataForRender = async (req, store) => {
   const promises = [];
 
-    await routes.some(async route => {
-    const match = matchPath(url.parse(req.url).pathname, route);
+    await routes(true).some(async route => {
+    const match = matchPath(url.parse(req.url).pathname, route.path);
     if (match) {
-      route.serverComponent.then((component) => {
+      route.component.then((component) => {
+        console.log(component)
         const promise =
         component &&
-        component.fetchData &&
-        component.fetchData(store, match);
+        component(store, match);
       promises.push(promise);
       return match;
       })

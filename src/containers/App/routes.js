@@ -1,27 +1,26 @@
 import {asyncComponent} from 'react-async-component';
 import React from 'react';
 
-const asyncHome = asyncComponent({
-	resolve: () => import('../../pages/Home'),
-    LoadingComponent: ({ match }) => <div>Resolving {match.url}</div>
-});
-
-const asyncAbout = asyncComponent({
-    resolve: () => import('../../pages/About'),
-    LoadingComponent: ({ match }) => <div>Resolving {match.url}</div>
-});
-
-export const routes = [
+const getComponent = (component, isServer) => {
+	console.log('from getComponent func', isServer)
+	if(isServer) {
+		return import(`../../pages/${component}`).then(x => x.fetchData);
+	} else {
+		return asyncComponent({
+			resolve: () => import(`../../pages/${component}`),
+			LoadingComponent: ({ match }) => <div>Resolving {match.url}</div>
+		})
+	}
+}
+export const routes = (isServer) => [
 		{
 			path: '/',
-			component: asyncHome,
-			serverComponent: import('../../pages/Home').then(x => x.default),
+			component: getComponent('Home', isServer),
 			exact: true
 		},
 		{
 			path: '/about',
-			component: asyncAbout,
-			serverComponent: import('../../pages/About').then(x => x.default),
+			component: getComponent('About', isServer),
 			exact: true
 		}
 	];
