@@ -4,7 +4,7 @@ import React from 'react';
 const getComponent = (component, isServer) => {
 	console.log('from getComponent func', isServer)
 	if(isServer) {
-		return import(`../../pages/${component}`).then(x => x.fetchData);
+		return import(`../../pages/${component}`);
 	} else {
 		return asyncComponent({
 			resolve: () => import(`../../pages/${component}`),
