@@ -14,7 +14,7 @@ class App extends Component {
       // FIXME:
       setTimeout(() => {
         window.isServer = false
-      }, 2000)
+      }, 0)
 
     }
     renderRoutes = () => {
