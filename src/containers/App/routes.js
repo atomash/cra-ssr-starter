@@ -4,7 +4,9 @@ import React from 'react';
 const getComponent = (component, isServer) => {
 	console.log('from getComponent func', isServer)
 	if(isServer) {
-		return import(`../../pages/${component}`);
+		return import(`../../pages/${component}`).then(c => {
+			return c
+		});
 	} else {
 		return asyncComponent({
 			resolve: () => import(`../../pages/${component}`),
@@ -15,12 +17,12 @@ const getComponent = (component, isServer) => {
 export const routes = (isServer) => [
 		{
 			path: '/',
+			exact: true,
 			component: getComponent('Home', isServer),
-			exact: true
 		},
 		{
 			path: '/about',
+			exact: true,
 			component: getComponent('About', isServer),
-			exact: true
 		}
 	];

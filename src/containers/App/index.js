@@ -11,7 +11,11 @@ import './index.css';
 import { routes } from './routes';
 class App extends Component {
     componentDidMount() {
+      // FIXME:
+      setTimeout(() => {
         window.isServer = false
+      }, 2000)
+
     }
     renderRoutes = () => {
       return routes(false).map(route => (

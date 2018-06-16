@@ -8,11 +8,10 @@ import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
 import fetchDataForRender from './fetchDataForRender';
 
+
 async function reactSSRMiddleware(req, res){
-    console.log('FROM RECT SSR')
     const store = configureStore();
     await fetchDataForRender(req, store);
-    console.log(store.getState())
     const context = {};
     const asyncContext = createAsyncContext();
 

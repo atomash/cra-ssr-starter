@@ -4,24 +4,16 @@ import { matchPath } from 'react-router-dom';
 import { routes } from '../../src/containers/App/routes'
 
 const fetchDataForRender = async (req, store) => {
-  const promises = [];
-
-
-    routes(true).some( async route => {
-    const match = matchPath(url.parse(req.url).pathname, route.path);
-    console.log(match, url.parse(req.url).pathname)
-    if (match) {
-      const component = await route.component
-      const promise =
-      component.fetchData &&
-      component.fetchData(store, match);
-      promises.push(promise);
-      return match;
+    let promises = [];
+    const route = routes(true).filter(r => matchPath(url.parse(req.url).pathname, r))
+    if(route.length) {
+      // TODO: FROM [0] TO ACTUALLY ARRAY LOOP
+      const component = await route[0].component;
+      if(component.fetchData) {
+        promises.push(component.fetchData(store))
+      }
     }
-
-  });
-  console.log(promises)
-  return Promise.all(promises);
+    return Promise.all(promises)
 };
 
 export default fetchDataForRender;
