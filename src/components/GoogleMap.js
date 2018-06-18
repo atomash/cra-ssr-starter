@@ -9,14 +9,14 @@ class GoogleMap extends Component {
                 google={this.props.google}
                 zoom={16}
                 initialCenter={{
-                lat: 48.452423,
-                lng: 25.553904
+                lat: 58.452423,
+                lng: 55.553904
                 }}
                 style={{ height: '350px', position: 'relative', width: '650px' }}
                 >
 
                 <Marker
-                position={{lat: 48.452423, lng: 25.553904}} />
+                position={{lat: 58.452423, lng: 55.553904}} />
                 </Map>
             </div>
         );
@@ -24,5 +24,5 @@ class GoogleMap extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ('AIzaSyAFYMbto15gCUfjGvhr4OqtNvb8zCahOjg')
+    apiKey: ('KEY')
 })(GoogleMap)

@@ -11,11 +11,18 @@ const MOUNT = document.getElementById('root');
 
 let initialState = window.INITIAL_STATE,
     rehydrateState = window.ASYNC_COMPONENTS_STATE;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e2c9f1a10e7508ebf5d2a829c856d1f063f1067f
 const store = configureStore(initialState);
 renderApplication(store, rehydrateState);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e2c9f1a10e7508ebf5d2a829c856d1f063f1067f
 function renderApplication(store, rehydrateState){
     const app = (
         <AsyncComponentProvider rehydrateState={rehydrateState}>
