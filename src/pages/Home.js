@@ -7,13 +7,13 @@ export class Home extends Component {
   static fetchData(store) {
     return store.dispatch(fetchUser());
   }
-
   componentDidMount() {
       if(!window.isServer){
           this.props.fetchUser()
       }
   }
   render() {
+    console.log("test")
     return (
       <div>
         <h1>Home page</h1>

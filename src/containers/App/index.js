@@ -24,7 +24,9 @@ const asyncAbout = asyncComponent({
 
 class App extends Component {
     componentDidMount() {
+      setTimeout(() => {
         window.isServer = false
+      }, 0)
     }
   render() {
     return (
@@ -38,7 +40,6 @@ class App extends Component {
         <div className="App">
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-
           </div>
           <nav>
             <li>

@@ -6,11 +6,15 @@ import { AsyncComponentProvider, createAsyncContext } from 'react-async-componen
 import asyncBootstrapper from 'react-async-bootstrapper';
 import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
-import fetchDataForRender from './fetchDataForRender';
+import fetchData from './fetchData';
 
 async function reactSSRMiddleware(req, res){
       const store = configureStore(undefined, {logger: false});
-      await fetchDataForRender(req, store);
+      try {
+        await fetchData(req, store);
+      } catch (err) {
+          console.log(err)
+      }
       const context = {};
       const asyncContext = createAsyncContext();
 

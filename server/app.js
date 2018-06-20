@@ -1,4 +1,5 @@
 import express from 'express';
+import favicon from 'serve-favicon';
 import reactSSRMiddleware from './ssr/reactSSRMiddleware';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -17,7 +18,9 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV !== 'development') {
     const __ROOT_DIR__ = process.cwd();
-    const staticDirPath = path.resolve(__ROOT_DIR__, 'build', 'static');
+    const staticDirPath = path.resolve(__ROOT_DIR__, 'build', 'static')
+    ;
+    app.use(favicon(path.join(__ROOT_DIR__, 'build', 'favicon.ico')));
     app.use('/static', express.static(staticDirPath));
 }
 
