@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 
-export const fetchUser = () => (dispatch)=>{
+export const fetchUser = (id) => (dispatch)=>{
+    console.log(id)
     return axios.get(`http://localhost:4000/api/user`)
             .then((res) => {
                 dispatch({type:"GET_USER", payload:res.data})

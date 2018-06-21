@@ -1,14 +1,16 @@
 import url from 'url';
+import { matchRoutes } from 'react-router-config'
 import { routes } from '../../src/routes'
 
 export const PreloadDateInit = (req, store) => {
-    const promises = routes.map(route => {
-      if (route.path === url.parse(req.url).pathname) {
+  const branch = matchRoutes(routes, req.path)
+    const promises = branch.map(({ route, match }) => {
+      if (match.url === url.parse(req.url).pathname) {
         if (route.PreloadDate) {
           return Promise.all(
             route
-              .PreloadDate(req)
-              .map(item => store.dispatch(item))
+              .PreloadDate(match.params)
+              .map(PreloadFunction => store.dispatch(PreloadFunction))
           );
         }
         return Promise.resolve(null);

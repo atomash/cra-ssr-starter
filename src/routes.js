@@ -30,4 +30,11 @@ export const routes = [
         //     fetchUser()
         // ]
     },
+    // {
+    //     path: '/user/:id',
+    //     component: asyncUser,
+    //     PreloadDate: (match) => [
+    //         fetchUserByParams(match.id)
+    //     ]
+    // },
 ]
