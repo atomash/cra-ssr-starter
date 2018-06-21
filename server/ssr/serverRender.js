@@ -14,7 +14,7 @@ async function ServerRender(req, res){
       try {
         await PreloadDateInit(req, store);
       } catch (err) {
-        console.error(`==> 😭 error: ${err}`);
+        console.error(`==> 😭 ${err}`);
       }
       const context = {};
       const asyncContext = createAsyncContext();
@@ -34,6 +34,7 @@ async function ServerRender(req, res){
         res.end();
         return;
     }
+    
       asyncBootstrapper(rootElement).then(() => {
               const appString = renderToString(rootElement);
               const initialState = store.getState();
@@ -46,8 +47,6 @@ async function ServerRender(req, res){
                   helmet,
                   isServer: true
               }));
-    
-
       });
 }
 

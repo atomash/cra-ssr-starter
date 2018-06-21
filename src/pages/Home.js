@@ -10,7 +10,7 @@ export class Home extends Component {
       }
   }
   render() {
-    console.log("test")
+    
     return (
       <div>
         <h1>Home page</h1>

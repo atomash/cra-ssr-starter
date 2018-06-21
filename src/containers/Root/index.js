@@ -8,6 +8,7 @@ class Root extends Component {
         const {type, url, store, context} = this.props;
 
         if (type === 'server'){
+            console.log("test")
             return (
                 <Provider store={store}>
 
