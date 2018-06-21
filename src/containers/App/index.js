@@ -14,11 +14,11 @@ import { routes } from '../../routes';
 
 
 class App extends Component {
-    // componentDidMount() {
-    //   setTimeout(() => {
-    //     window.isServer = false
-    //   }, 0)
-    // }
+    componentDidMount() {
+      setTimeout(() => {
+        window.isServer = false
+      }, 0)
+    }
     renderRoutes = () => {
       return routes.map(route => (
         <Route

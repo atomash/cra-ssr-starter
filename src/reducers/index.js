@@ -1,19 +1,11 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import session from './sessionReducer';
+import { ProductReducer } from './product';
+import { UserReduser } from './user';
 
-const appReducer = combineReducers({
-  session
+const rootReducer = combineReducers({
+  pr: ProductReducer,
+  ur: UserReduser
 });
 
-const rootReducer = (state, action) => {
-  if (action.type === 'DESTROY_SESSION') {
-    state = undefined;
-  }
-
-  return appReducer(state, action);
-};
-
 export default rootReducer;
-
-export * from './sessionReducer';
