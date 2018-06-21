@@ -6,14 +6,15 @@ import { AsyncComponentProvider, createAsyncContext } from 'react-async-componen
 import asyncBootstrapper from 'react-async-bootstrapper';
 import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
-import fetchData from './fetchData';
+import { PreloadDateInit } from './preloadDate';
 
-async function reactSSRMiddleware(req, res){
+async function ServerRender(req, res){
+    console.log("render")
       const store = configureStore(undefined, {logger: false});
       try {
-        await fetchData(req, store);
+        await PreloadDateInit(req, store);
       } catch (err) {
-          console.log(err)
+        console.error(`==> 😭 error: ${err}`);
       }
       const context = {};
       const asyncContext = createAsyncContext();
@@ -28,7 +29,11 @@ async function reactSSRMiddleware(req, res){
               />
           </AsyncComponentProvider>
       );
-
+      if (context.url){
+        res.status(301).setHeader('Location', context.url);
+        res.end();
+        return;
+    }
       asyncBootstrapper(rootElement).then(() => {
               const appString = renderToString(rootElement);
               const initialState = store.getState();
@@ -41,11 +46,9 @@ async function reactSSRMiddleware(req, res){
                   helmet,
                   isServer: true
               }));
-    if (context.location){
-      res.redirect(context.location.pathname)
-    }
+    
 
       });
 }
 
-export default reactSSRMiddleware;
+export default ServerRender;

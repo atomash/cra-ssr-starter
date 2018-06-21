@@ -1,5 +1,6 @@
 import React from 'react'
 import {asyncComponent} from 'react-async-component';
+import { fetchUser } from "./actions/index";
 
 const asyncHome = asyncComponent({
     resolve: () => import('./pages/Home'),
@@ -16,16 +17,16 @@ export const routes = [
         path: '/',
         exact: true,
         component: asyncHome,
-        // preloadData: () => [
-        //   action()
-        // ]
+        PreloadDate: () => [
+            fetchUser()
+        ]
     },
     {
         path: '/about',
         exact: true,
         component: asyncAbout,
-        // preloadData: () => [
-        //   action()
+        // PreloadDate: () => [
+        //     fetchUser()
         // ]
     },
 ]
