@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import { fetchUser } from "../actions/index";
 
 export class Home extends Component {
-  static fetchData(store) {
-    return store.dispatch(fetchUser());
-  }
-  componentDidMount() {
-      if(!window.isServer){
-          this.props.fetchUser()
-      }
-  }
+  // static fetchData(store) {
+  //   return store.dispatch(fetchUser());
+  // }
+  // componentDidMount() {
+  //     if(!window.isServer){
+  //         this.props.fetchUser()
+  //     }
+  // }
   render() {
     console.log("test")
     return (

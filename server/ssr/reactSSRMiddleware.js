@@ -2,50 +2,49 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import configureStore from 'store/configureStore';
 import Root from 'containers/Root';
-import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
-import asyncBootstrapper from 'react-async-bootstrapper';
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack';
 import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
-import fetchData from './fetchData';
+//import fetchData from './fetchData';
 
 async function reactSSRMiddleware(req, res){
       const store = configureStore(undefined, {logger: false});
-      try {
-        await fetchData(req, store);
-      } catch (err) {
-          console.log(err)
-      }
+    //   try {
+    //     await fetchData(req, store);
+    //   } catch (err) {
+    //       console.log(err)
+    //   }
       const context = {};
-      const asyncContext = createAsyncContext();
+      const modules = [];
 
       const rootElement = (
-          <AsyncComponentProvider asyncContext={asyncContext}>
-              <Root
-                  store={store}
-                  type="server"
-                  url={req.url}
-                  context={context}
-              />
-          </AsyncComponentProvider>
+        <Loadable.Capture 
+        report={moduleName => modules.push(moduleName)}>
+            <Root
+                store={store}
+                type="server"
+                url={req.url}
+                context={context}
+            />
+        </Loadable.Capture>
+         
       );
-
-      asyncBootstrapper(rootElement).then(() => {
-              const appString = renderToString(rootElement);
-              const initialState = store.getState();
-              const asyncState = asyncContext.getState();
-              const helmet = Helmet.renderStatic();
-              res.send(renderHTMLTemplate({
-                  appString,
-                  initialState,
-                  asyncState,
-                  helmet,
-                  isServer: true
-              }));
+      const stats = require('../../build/react-loadable.json');
+      const bundles = getBundles(stats, modules);
+      const appString = renderToString(rootElement);
+      const initialState = store.getState();
+      const helmet = Helmet.renderStatic();
+        res.send(renderHTMLTemplate({
+            appString,
+            initialState,
+            helmet,
+            bundles,
+            isServer: true
+        }));
     if (context.location){
       res.redirect(context.location.pathname)
     }
-
-      });
 }
 
 export default reactSSRMiddleware;

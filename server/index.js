@@ -5,6 +5,7 @@
 import 'babel-polyfill';
 import app from './app.js';
 import http from 'http';
+import Loadable from 'react-loadable';
 const debug = require('debug')('bot-server:server');
 
 /**
@@ -23,10 +24,13 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+Loadable.preloadAll().then(() => {
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+})
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a number, string, or false.

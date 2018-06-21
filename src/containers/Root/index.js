@@ -10,12 +10,11 @@ class Root extends Component {
         if (type === 'server'){
             return (
                 <Provider store={store}>
-
                   <StaticRouter
                       location={url}
                       context={context}
                   >
-                      <App renderFrom="server"/>
+                      <App />
                   </StaticRouter>
                 </Provider>
             );
@@ -23,7 +22,7 @@ class Root extends Component {
         return (
             <Provider store={store}>
               <BrowserRouter>
-                  <App renderFrom="client"/>
+                  <App />
               </BrowserRouter>
 
             </Provider>
