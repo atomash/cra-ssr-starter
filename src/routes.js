@@ -17,7 +17,7 @@ export const routes = [
         path: '/',
         exact: true,
         component: asyncHome,
-        PreloadDate: () => [
+        PreloadData: () => [
             fetchUser(),
             fetchProduct()
         ]
@@ -26,14 +26,14 @@ export const routes = [
         path: '/about',
         exact: true,
         component: asyncAbout,
-        // PreloadDate: () => [
+        // PreloadData: () => [
         //     fetchUser()
         // ]
     },
     // {
     //     path: '/user/:id',
     //     component: asyncUser,
-    //     PreloadDate: (match) => [
+    //     PreloadData: (match) => [
     //         fetchUserByParams(match.id)
     //     ]
     // },

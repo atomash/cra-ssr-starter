@@ -6,13 +6,13 @@ import { AsyncComponentProvider, createAsyncContext } from 'react-async-componen
 import asyncBootstrapper from 'react-async-bootstrapper';
 import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
-import { PreloadDateInit } from './preloadDate';
+import { PreloadDataInit } from './preloadData';
 
 async function ServerRender(req, res){
     console.log("render")
       const store = configureStore(undefined, {logger: false});
       try {
-        await PreloadDateInit(req, store);
+        await PreloadDataInit(req, store);
       } catch (err) {
         console.error(`==> 😭 ${err}`);
       }

@@ -1,13 +1,13 @@
 import { matchRoutes } from 'react-router-config'
 import { routes } from '../../src/routes'
 
-export const PreloadDateInit = (req, store) => {
+export const PreloadDataInit = (req, store) => {
   const branch = matchRoutes(routes, req.path)
     const promises = branch.map(({ route, match }) => {
-      if (route.PreloadDate) {
+      if (route.PreloadData) {
           return Promise.all(
             route
-              .PreloadDate(match.params)
+              .PreloadData(match.params)
               .map(PreloadFunction => store.dispatch(PreloadFunction))
           );
         }
