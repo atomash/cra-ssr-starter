@@ -64,6 +64,7 @@ class App extends Component {
             {this.renderRoutes()}
             <Route exact path="/red" render={() => (<Redirect to="/" />)} />
             <Route path="*" render={() => <div>404</div>} />
+            
         </Switch>
       </div>
     );

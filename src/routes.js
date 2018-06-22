@@ -1,20 +1,18 @@
-import React from 'react';
 import Loadable from 'react-loadable';
+import { fetchUser, fetchProduct } from "./actions/index";
 
 const Home = Loadable({
     loader: () => import(/* webpackChunkName: 'home' */ 
     './pages/Home'),
-    loading() {
-      return <div>Loading...</div>
-    }
+    loading: () => null,
+    modules: ['./pages/Home']
   });
 
   const About = Loadable({
     loader: () => import(/* webpackChunkName: 'about' */
     './pages/About'),
-    loading() {
-      return <div>Loading...</div>
-    }
+    loading: () => null,
+    modules: ['./pages/About']
   });
 
 export const routes = [
@@ -22,17 +20,25 @@ export const routes = [
         path: '/',
         exact: true,
         component: Home,
-        // preloadData: () => [
-        //   action()
-        // ]
+        PreloadData: () => [
+          fetchUser(),
+          fetchProduct()
+      ]
     },
     {
         path: '/about',
         exact: true,
         component: About,
-        // preloadData: () => [
-        //   action()
+        // PreloadData: () => [
+        //     fetchUser()
         // ]
     },
+    // {
+    //     path: '/user/:id',
+    //     component: asyncUser,
+    //     PreloadData: (match) => [
+    //         fetchUserByParams(match.id)
+    //     ]
+    // },
       
 ]

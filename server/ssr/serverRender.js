@@ -6,15 +6,15 @@ import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
-//import fetchData from './fetchData';
+import { PreloadDataInit } from './preloadData';
 
-async function reactSSRMiddleware(req, res){
+async function ServerRender(req, res){
       const store = configureStore(undefined, {logger: false});
-    //   try {
-    //     await fetchData(req, store);
-    //   } catch (err) {
-    //       console.log(err)
-    //   }
+      try {
+        await PreloadDataInit(req, store);
+      } catch (err) {
+        console.error(`==> 😭 ${err}`);
+      }
       const context = {};
       const modules = [];
 
@@ -31,8 +31,8 @@ async function reactSSRMiddleware(req, res){
          
       );
       const stats = require('../../build/react-loadable.json');
-      const bundles = getBundles(stats, modules);
       const appString = renderToString(rootElement);
+      const bundles = getBundles(stats, modules);
       const initialState = store.getState();
       const helmet = Helmet.renderStatic();
         res.send(renderHTMLTemplate({
@@ -47,4 +47,4 @@ async function reactSSRMiddleware(req, res){
     }
 }
 
-export default reactSSRMiddleware;
+export default ServerRender;

@@ -28,9 +28,7 @@ export default props => `
   </script>
   <div id="root">${props.appString}</div>
   <script type="text/javascript" src="/${assetManifest['main.js']}"></script>
-  ${props.bundles.map(bundle => {
-    return `<script src="/${bundle.file}"></script>`
-  }).join('\n')}
+  ${props.bundles.map(bundle => { return `<script src="${bundle.file}"></script>`; }).join("\n")}
   <script>window.render();</script>
   </body>
   </html>

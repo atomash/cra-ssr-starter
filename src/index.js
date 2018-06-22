@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
 import Loadable from 'react-loadable';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
@@ -15,8 +15,14 @@ if (typeof window !== 'undefined' && window.INITIAL_STATE) {
     delete window.INITIAL_STATE;
 }
 const store = configureStore(initialState);
-window.render = () => {
+if (process.env.NODE_ENV === 'development'){
+    hydrate(<Root store={store} />, MOUNT)
+  } else {
+    window.render = () => {
     Loadable.preloadReady().then(() => {
-        ReactDOM.hydrate(<Root store={store} />, MOUNT)
+        hydrate(<Root store={store} />, MOUNT)
     });
 }
+  }
+  
+

@@ -1,6 +1,6 @@
 import express from 'express';
 import favicon from 'serve-favicon';
-import reactSSRMiddleware from './ssr/reactSSRMiddleware';
+import ServerRender from './ssr/serverRender';
 import path from 'path';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 app.use('/api', api);
 
-app.get('*', reactSSRMiddleware);
+app.get('*', ServerRender);
 
 if (process.env.NODE_ENV === 'development'){
     app.use(proxy(`ws://${webpackDevServerHost}`, {changeOrigin:true}));

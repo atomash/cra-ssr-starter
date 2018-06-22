@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUser } from "../actions/index";
+import { fetchUser, fetchProduct } from "../actions/index";
 
 export class Home extends Component {
-  // static fetchData(store) {
-  //   return store.dispatch(fetchUser());
-  // }
-  // componentDidMount() {
-  //     if(!window.isServer){
-  //         this.props.fetchUser()
-  //     }
-  // }
+  componentDidMount() {
+      if(!window.isServer){
+          this.props.fetchUser()
+          this.props.fetchProduct()
+      }
+  }
   render() {
-    console.log("test")
     return (
       <div>
         <h1>Home page</h1>
         <h2>{this.props.user.name}</h2>
+        <h3>{this.props.product.title}</h3>
       </div>
     );
   }
@@ -25,13 +23,15 @@ export class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.session.user,
+        product: state.pr.product,
+        user: state.ur.user,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-      fetchUser: fetchUser
+      fetchUser: fetchUser,
+      fetchProduct: fetchProduct
   }, dispatch)
 
 };
