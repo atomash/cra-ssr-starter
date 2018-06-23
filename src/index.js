@@ -15,14 +15,10 @@ if (typeof window !== 'undefined' && window.INITIAL_STATE) {
     delete window.INITIAL_STATE;
 }
 const store = configureStore(initialState);
-if (process.env.NODE_ENV === 'development'){
-    hydrate(<Root store={store} />, MOUNT)
-  } else {
-    window.render = () => {
+
+window.onload = () => {
     Loadable.preloadReady().then(() => {
         hydrate(<Root store={store} />, MOUNT)
     });
 }
-  }
-  
 

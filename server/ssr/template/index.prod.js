@@ -2,6 +2,18 @@ import serialize from 'serialize-javascript';
 import assetManifest from '../../../build/asset-manifest.json';
 
 
+const jsScripts = bundles => {
+  const paths = [
+    assetManifest['main.js'],
+    ...bundles.filter(b => b.file.endsWith('.js')).map(b => b.file)
+  ];
+
+  return paths.reduce((string, path) => {
+    string += `<script type="text/javascript" src=/${path}></script>`;
+    return string;
+  }, '');
+};
+
 export default props => `
   <!doctype html>
   <html ${props.helmet.htmlAttributes.toString()}>
@@ -27,9 +39,7 @@ export default props => `
     window.isServer = ${serialize(props.isServer)}
   </script>
   <div id="root">${props.appString}</div>
-  <script type="text/javascript" src="/${assetManifest['main.js']}"></script>
-  ${props.bundles.map(bundle => { return `<script src="${bundle.file}"></script>`; }).join("\n")}
-  <script>window.render();</script>
+  ${jsScripts(props.bundles)}
   </body>
   </html>
 `;
