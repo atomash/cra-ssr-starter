@@ -16,9 +16,9 @@ if (typeof window !== 'undefined' && window.INITIAL_STATE) {
 }
 const store = configureStore(initialState);
 
-window.onload = () => {
+window.addEventListener("load", () => {
     Loadable.preloadReady().then(() => {
         hydrate(<Root store={store} />, MOUNT)
     });
-}
+});
 
