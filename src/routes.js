@@ -1,4 +1,5 @@
 import Loadable from 'react-loadable';
+import { NotFound } from './pages/NotFound'
 import { fetchUser, fetchProduct } from "./actions/index";
 
 const Home = Loadable({
@@ -13,6 +14,13 @@ const Home = Loadable({
     './pages/About'),
     loading: () => null,
     modules: ['./pages/About']
+  });
+
+  const TestRedirects = Loadable({
+    loader: () => import(/* webpackChunkName: 'testredirect' */
+    './pages/TestRedirect'),
+    loading: () => null,
+    modules: ['./pages/TestRedirect']
   });
 
 export const routes = [
@@ -33,6 +41,10 @@ export const routes = [
         //     fetchUser()
         // ]
     },
+    {
+        path: '/red',
+        component: TestRedirects,
+    },
     // {
     //     path: '/user/:id',
     //     component: asyncUser,
@@ -40,5 +52,7 @@ export const routes = [
     //         fetchUserByParams(match.id)
     //     ]
     // },
-      
+    {
+        component: NotFound,
+    }
 ]

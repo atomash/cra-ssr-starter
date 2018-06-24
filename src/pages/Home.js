@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser, fetchProduct } from "../actions/index";
 
-export class Home extends Component {
+class Home extends Component {
   componentDidMount() {
       if(!window.isServer){
           this.props.fetchUser()

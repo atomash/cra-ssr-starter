@@ -5,6 +5,7 @@ import Root from 'containers/Root';
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import renderHTMLTemplate from './template/index';
+import renderServerError from './template/error.template'
 import Helmet from 'react-helmet';
 import { PreloadDataInit } from './preloadData';
 
@@ -30,8 +31,16 @@ async function ServerRender(req, res){
         </Loadable.Capture>
          
       );
+
       const stats = require('../../build/react-loadable.json');
+      try {
       const appString = renderToString(rootElement);
+      if (context.url){
+        res.redirect(context.status, context.url)
+      }
+      if(context.status === 404){
+        res.status(404)
+      }
       const bundles = getBundles(stats, modules);
       const initialState = store.getState();
       const helmet = Helmet.renderStatic();
@@ -42,9 +51,9 @@ async function ServerRender(req, res){
             bundles,
             isServer: true
         }));
-    if (context.location){
-      res.redirect(context.location.pathname)
-    }
+      } catch(err) {
+        res.status(500).send(renderServerError({err}));
+      }
 }
 
 export default ServerRender;
