@@ -5,7 +5,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
@@ -303,7 +302,6 @@ module.exports = {
         // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
         // You can remove this if you don't use Moment.js:
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new LodashModuleReplacementPlugin(),
         new ReactLoadablePlugin({
           filename: 'build/react-loadable.json'
         })
