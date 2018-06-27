@@ -1,10 +1,12 @@
+import * as actionTypes from '../actions/actionTypes';
+
 export function UserReduser(state={user:{}}, action){
     switch(action.type){
-        case "GET_USER_START":
+        case `${actionTypes.GET_USER}_START`:
             return {
                 loading: true,
             };
-        case "GET_USER_COMPLETED":
+        case `${actionTypes.GET_USER}_COMPLETED`:
             return {
                 user: action.payload.data,
                 loading: false
