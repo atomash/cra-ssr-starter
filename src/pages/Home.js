@@ -14,7 +14,7 @@ class Home extends Component {
     return (
       <div>
         <h1>Home page</h1>
-        <h2>{this.props.user.name}</h2>
+        <h2>{this.props.userLoading ? "ff": this.props.user.name}</h2>
         <h3>{this.props.product.title}</h3>
       </div>
     );
@@ -22,9 +22,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.ur.loading)
     return {
         product: state.pr.product,
         user: state.ur.user,
+        userLoading: state.ur.loading 
     }
 };
 

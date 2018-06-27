@@ -1,16 +1,9 @@
 import axios from 'axios';
+import createPromiseThunk from '../lib/createPromiseThunk'; 
 
 
-export const fetchUser = () => (dispatch)=>{
-    return axios.get(`http://localhost:4000/api/user`)
-            .then((res) => {
-                dispatch({type:"GET_USER", payload:res.data})
-            })
-};
+export const fetchUser = createPromiseThunk('GET_USER', () => axios.get(`/api/user`)
+);
 
-export const fetchProduct = () => (dispatch)=>{
-    return axios.get(`http://localhost:4000/api/product`)
-            .then((res) => {
-                dispatch({type:"GET_PRODUCT", payload:res.data})
-            })
-};
+export const fetchProduct = createPromiseThunk('GET_PRODUCT', () => axios.get(`/api/product`)
+);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { RedirectWithStatus } from '../lib'
+import { RedirectWithStatus } from '../lib/RedirectWithStatus'
 
 export default class TestRedirect extends Component {
     render() {
