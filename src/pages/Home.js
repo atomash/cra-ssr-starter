@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button } from 'antd';
 import { fetchUser, fetchProduct } from "../actions/index";
+import { Spin, Icon } from 'antd';
 
 class Home extends Component {
   componentDidMount() {
@@ -12,11 +12,11 @@ class Home extends Component {
       }
   }
   render() {
+    const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
     return (
       <div>
         <h1>Home page</h1>
-        <Button type="primary">Primary</Button>
-        <h2>{this.props.userLoading ? "ff": this.props.user.name}</h2>
+        <h2>{this.props.userLoading ? <Spin indicator={antIcon} />: this.props.user.name}</h2>
         <h3>{this.props.product.title}</h3>
       </div>
     );

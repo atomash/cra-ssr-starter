@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { renderRoutes } from 'react-router-config';
 import Helmet from 'react-helmet';
-
-import { HeaderComponent } from './header'
+import { Layout } from 'antd';
+import { MenuComponent } from './menu'
 import { routes } from '../../routes'
+
+const { Header, Content } = Layout;
 
 class App extends Component {
     componentDidMount() {
@@ -13,16 +15,24 @@ class App extends Component {
     }
   render() {
     return (
-      <div>
+      <Layout>
         <Helmet>
           <title>
             CRA SSR
           </title>
           <meta property="og:title" content="CRA SSR"/>
         </Helmet>
-        <HeaderComponent />
-       {renderRoutes(routes)}
-      </div>
+        <Header
+        style={{ height: '55px' }}
+        > 
+         <MenuComponent />
+        </Header>
+        <Content style={{ background: '#fff', padding: '0 50px' }}>
+        <div style={{padding: 24}}>
+          {renderRoutes(routes)}
+          </div>
+        </Content>
+      </Layout>
     );
   }
 }
