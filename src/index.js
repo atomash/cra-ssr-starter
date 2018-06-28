@@ -3,7 +3,7 @@ import { hydrate } from 'react-dom';
 import Loadable from 'react-loadable';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
-import './index.css';
+import 'antd/dist/antd.min.css'
 
 const MOUNT = document.getElementById('root');
 

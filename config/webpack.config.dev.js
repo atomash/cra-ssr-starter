@@ -155,7 +155,8 @@ module.exports = {
               plugins: [[
                 "import", 
                 { 
-                  libraryName: "antd", 
+                  libraryName: "antd",
+                  libraryDirectory: "es", 
                   style: "css" 
                 }
               ]]
