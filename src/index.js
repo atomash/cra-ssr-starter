@@ -3,11 +3,12 @@ import { hydrate } from 'react-dom';
 import Loadable from 'react-loadable';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
-import 'antd/dist/antd.min.css'
+
+if (process.env.NODE_ENV !== 'development'){
+    require('antd/dist/antd.min.css') 
+}
 
 const MOUNT = document.getElementById('root');
-
-
 let initialState;
     
 if (typeof window !== 'undefined' && window.INITIAL_STATE) {

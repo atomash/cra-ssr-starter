@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser, fetchProduct } from "../actions/index";
-import { Spin, Icon } from 'antd';
+import { Spin, Icon, Button } from 'antd';
 
 class Home extends Component {
   componentDidMount() {
@@ -15,7 +15,8 @@ class Home extends Component {
     const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
     return (
       <div>
-        <h1>Home page</h1>
+        <h1>Home page <Button type="primary">Primary</Button>
+</h1>
         <h2>{this.props.userLoading ? <Spin indicator={antIcon} />: this.props.user.name}</h2>
         <h3>{this.props.product.title}</h3>
       </div>

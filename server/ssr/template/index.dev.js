@@ -22,6 +22,7 @@ export default props => `
     ${props.helmet.base.toString()}
     ${props.helmet.style.toString()}
     ${props.helmet.script.toString()}
+    <link rel="stylesheet" href="/antd/antd.min.css"/>
   </head>
   <body ${props.helmet.bodyAttributes.toString()}>
     ${props.helmet.noscript.toString()}

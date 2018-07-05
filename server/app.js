@@ -13,7 +13,9 @@ const app = express();
 const webpackDevServerHost = 'localhost:3000';
 
 if (process.env.NODE_ENV === 'development') {
+    const __ROOT_DIR__ = process.cwd();
     app.use('/static', proxy({target: `http://${webpackDevServerHost}`, changeOrigin: true}));
+    app.use('/antd', express.static(path.resolve(__ROOT_DIR__, 'node_modules', 'antd', 'dist')));
 }
 
 if (process.env.NODE_ENV !== 'development') {
@@ -24,6 +26,7 @@ if (process.env.NODE_ENV !== 'development') {
     app.use('/static', express.static(staticDirPath));
 }
 
+app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
