@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUser, fetchProduct } from "../actions/index";
+import { fetchUser, fetchProduct } from "../../actions/index";
 import { Spin, Icon, Button } from 'antd';
 
 class Home extends Component {

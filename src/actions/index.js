@@ -1,10 +1,12 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-import createPromiseThunk from '../lib/createPromiseThunk'; 
+import PromiseThunk from '../lib/createPromiseThunk'; 
 
 
-export const fetchUser = createPromiseThunk(actionTypes.GET_USER, () => axios.get(`/api/user`)
+export const fetchUser = PromiseThunk(
+    actionTypes.GET_USER, () => axios.get(`/api/user`)
 );
 
-export const fetchProduct = createPromiseThunk(actionTypes.GET_PRODUCT, () => axios.get(`/api/product`)
+export const fetchProduct = PromiseThunk(
+    actionTypes.GET_PRODUCT, () => axios.get(`/api/product`)
 );

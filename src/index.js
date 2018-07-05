@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
 
-if (process.env.NODE_ENV !== 'development'){
+if (process.env.NODE_ENV === 'production'){
     require('antd/dist/antd.min.css') 
 }
 

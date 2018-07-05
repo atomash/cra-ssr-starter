@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../../actions/actionTypes';
 
 export function UserReduser(state={user:{}}, action){
     switch(action.type){
@@ -14,4 +14,4 @@ export function UserReduser(state={user:{}}, action){
         default:
             return state;
     }
-  }
+}
