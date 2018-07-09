@@ -4,12 +4,18 @@ import ServerRender from './ssr/serverRender';
 import path from 'path';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import proxy from 'http-proxy-middleware';
-
 import api from './api';
+import mongoose, { connectingMongo } from  './connectionMongo';
+
+
+connectingMongo('mongodb://localhost:27017/testdbmongo')
 
 const app = express();
+const MongoStore = require('connect-mongo')(session);
+
 app.disable('x-powered-by');
 const webpackDevServerHost = 'localhost:3000';
 
@@ -32,6 +38,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'mysupersecret',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ 
+        mongooseConnection: mongoose.connection 
+    }),
+    cookie: {
+        httpOnly: true, maxAge: 180 * 60 * 1000 
+    }
+}));
 
 
 app.use('/api', api);
