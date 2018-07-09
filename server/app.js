@@ -10,6 +10,7 @@ import proxy from 'http-proxy-middleware';
 import api from './api';
 
 const app = express();
+app.disable('x-powered-by');
 const webpackDevServerHost = 'localhost:3000';
 
 if (process.env.NODE_ENV === 'development') {
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV !== 'development') {
     app.use('/static', express.static(staticDirPath));
 }
 
-app.disable('x-powered-by');
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
