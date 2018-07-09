@@ -6,7 +6,6 @@ import {StaticRouter, BrowserRouter} from 'react-router-dom';
 class Root extends Component {
     render(){
         const {type, url, store, context} = this.props;
-
         if (type === 'server'){
             return (
                 <Provider store={store}>
@@ -24,7 +23,6 @@ class Root extends Component {
               <BrowserRouter>
                   <App />
               </BrowserRouter>
-
             </Provider>
         );
     }
