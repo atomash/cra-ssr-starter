@@ -4,6 +4,7 @@ export function UserReduser(state={user:{}}, action){
     switch(action.type){
         case `${actionTypes.GET_USER}_START`:
             return {
+                user: {},
                 loading: true,
             };
         case `${actionTypes.GET_USER}_COMPLETED`:
