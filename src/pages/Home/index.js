@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser, fetchProduct } from "../../actions/index";
-import { Spin, Icon, Button } from 'antd';
+import { Button } from 'antd';
+import MyLoader from '../../lib/loader'
 
 class Home extends Component {
   componentDidMount() {
@@ -12,12 +13,13 @@ class Home extends Component {
       }
   }
   render() {
-    const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
     return (
       <div>
-        <h1>Home page <Button type="primary">Primary</Button>
-</h1>
-        <h2>{this.props.userLoading ? <Spin indicator={antIcon} />: this.props.user.name}</h2>
+        <h1> Home page</h1>
+        <Button type="primary">Primary</Button>
+        <MyLoader load={this.props.userLoading}>
+          <h1>{this.props.user.name}</h1>
+        </MyLoader>
         <h3>{this.props.product.title}</h3>
       </div>
     );
@@ -32,10 +34,10 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-      fetchUser: fetchUser,
-      fetchProduct: fetchProduct
+      fetchUser,
+      fetchProduct
   }, dispatch)
 
 };
