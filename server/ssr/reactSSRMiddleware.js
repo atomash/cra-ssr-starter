@@ -8,6 +8,7 @@ import renderHTMLTemplate from './template/index';
 import Helmet from 'react-helmet';
 import fetchDataForRender from './fetchDataForRender';
 
+
 async function reactSSRMiddleware(req, res){
       const store = configureStore(undefined, {logger: false});
       await fetchDataForRender(req, store);
